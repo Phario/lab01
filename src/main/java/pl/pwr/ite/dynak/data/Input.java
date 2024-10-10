@@ -1,25 +1,31 @@
 package pl.pwr.ite.dynak.data;
 import java.util.Scanner;
 public class Input {
-    private char[][] key;
-    private String data;
-    public Input(String data, char[][] key) {
-        this.key = key;
-        this.data = data;
+    static Character[][] key;
+    private static String data;
+    public Input(String data, Character[][] key) {
+        Input.key = key;
+        Input.data = data;
     }
-    public void encodingKeyPrompt() {
+    public static Character[][] encodingKeyPrompt() {
         System.out.println("Enter the encoding key:");
-        Scanner keyScanner = new Scanner(System.in);
+        Scanner KeyScanner = new Scanner(System.in);
         for (int i = 0; i < 5; i++) {
-            System.out.println("Enter line no. " + (i + 1) +":");
-            key[i] = keyScanner.next().toCharArray();
+            System.out.println("Enter line no. " + (i + 1) +" ( 5 letters):");
+            String keyLine = KeyScanner.next();
+            for (int j = 0; j<5; j++) {
+                key[i][j] = keyLine.charAt(j);
+            }
+            //key[i] = KeyScanner.next().toCharArray();
         }
+        return key;
     }
-    public void unEncodedStringPrompt() {
-        Scanner stringScanner = new Scanner(System.in);
-        System.out.println("Enter string to encode (a-z):");
-        data = stringScanner.nextLine();
+    public static String unEncodedStringPrompt() {
+        Scanner StringScanner = new Scanner(System.in);
+        System.out.println("Enter string to encode (a-z without x):");
+        data = StringScanner.nextLine();
+        return data;
     }
-    public char[][] getKey() {return key;}
+    public Character[][] getKey() {return key;}
     public String getData() {return data;}
 }
