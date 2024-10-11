@@ -18,8 +18,26 @@ public class Encoder {
         KeyBrowser KeyBrowser = new KeyBrowser();
         KeyBrowser.fillKeyMap(key);
         for (int i = 0; i < data.length(); i += 2) {
-            if (true) {
-
+            Integer[] firstPosition = KeyBrowser.getPosition(workableData[i]);
+            Integer[] secondPosition = KeyBrowser.getPosition(workableData[i+1]);
+            //different rows and columns:
+            if (!(firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
+                encodedString.append(key[secondPosition[0]][firstPosition[1]]);
+                encodedString.append(key[firstPosition[0]][secondPosition[1]]);
+            }
+            //same row, different column:
+            else if (!(firstPosition[0].equals(secondPosition[0])) && (firstPosition[1].equals(secondPosition[1]))) {
+                encodedString.append(key[][]);
+                encodedString.append(key[][]);
+            }
+            //same column, different row:
+            else if ((firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
+                encodedString.append(key[][]);
+                encodedString.append(key[][]);
+            }
+            //same letter
+            else () {
+                //TODO: increase i by 1 and insert x between the letters, make sure string has even number of character, otherwise add x
             }
         }
         //TODO: encoding logic
