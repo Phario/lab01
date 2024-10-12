@@ -28,29 +28,13 @@ public class Encoder {
                 }
                 //same row, different column:
                 else if (!(firstPosition[0].equals(secondPosition[0]))) {
-                    if (firstPosition[0] == 4) {
-                        encodedString.append(key[0][firstPosition[1]]);
-                        encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
-                    } else if (secondPosition[0] == 4) {
-                        encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
-                        encodedString.append(key[0][secondPosition[1]]);
-                    } else {
-                        encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
-                        encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
-                    }
+                    encodedString.append(key[(firstPosition[0] + 1) % 5][firstPosition[1]]);
+                    encodedString.append(key[(secondPosition[0] + 1) % 5][secondPosition[1]]);
                 }
                 //same column, different row:
                 else if (!(firstPosition[1].equals(secondPosition[1]))) {
-                    if (firstPosition[1] == 4) {
-                        encodedString.append(key[firstPosition[0]][0]);
-                        encodedString.append(key[secondPosition[0]][secondPosition[1] + 1]);
-                    } else if (secondPosition[1] == 4) {
-                        encodedString.append(key[firstPosition[0]][firstPosition[1] + 1]);
-                        encodedString.append(key[secondPosition[0]][0]);
-                    } else {
-                        encodedString.append(key[firstPosition[0]][firstPosition[1] + 1]);
-                        encodedString.append(key[secondPosition[0]][secondPosition[1] + 1]);
-                    }
+                    encodedString.append(key[firstPosition[0]][(firstPosition[1] + 1) % 5]);
+                    encodedString.append(key[secondPosition[0]][(secondPosition[1] + 1) % 5]);
                 }
                 //same letter
                 else {

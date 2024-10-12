@@ -40,29 +40,13 @@ public class Decoder {
                 }
                 //same row, different column:
                 else if (!(firstPosition[0].equals(secondPosition[0]))) {
-                    if (firstPosition[0] == 0) {
-                        decodedString.append(key[4][firstPosition[1]]);
-                        decodedString.append(key[secondPosition[0] - 1][secondPosition[1]]);
-                    } else if (secondPosition[0] == 0) {
-                        decodedString.append(key[firstPosition[0] - 1][firstPosition[1]]);
-                        decodedString.append(key[4][secondPosition[1]]);
-                    } else {
-                        decodedString.append(key[firstPosition[0] - 1][firstPosition[1]]);
-                        decodedString.append(key[secondPosition[0] - 1][secondPosition[1]]);
-                    }
+                    decodedString.append(key[(firstPosition[0] - 1 + 5) % 5][firstPosition[1]]);
+                    decodedString.append(key[(secondPosition[0] - 1 + 5) % 5][secondPosition[1]]);
                 }
                 //same column, different row:
                 else if (!(firstPosition[1].equals(secondPosition[1]))) {
-                    if (firstPosition[1] == 0) {
-                        decodedString.append(key[firstPosition[0]][4]);
-                        decodedString.append(key[secondPosition[0]][secondPosition[1] - 1]);
-                    } else if (secondPosition[1] == 0) {
-                        decodedString.append(key[firstPosition[0]][firstPosition[1] - 1]);
-                        decodedString.append(key[secondPosition[0]][4]);
-                    } else {
-                        decodedString.append(key[firstPosition[0]][firstPosition[1] - 1]);
-                        decodedString.append(key[secondPosition[0]][secondPosition[1] - 1]);
-                    }
+                    decodedString.append(key[firstPosition[0]][(firstPosition[1] - 1 + 5) % 5]);
+                    decodedString.append(key[secondPosition[0]][(secondPosition[1] - 1 + 5) % 5]);
                 }
             }
         }
