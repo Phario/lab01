@@ -38,8 +38,6 @@ public class Encoder {
                         encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
                         encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
                     }
-                    encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
-                    encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
                 }
                 //same column, different row:
                 else if (!(firstPosition[1].equals(secondPosition[1]))) {
