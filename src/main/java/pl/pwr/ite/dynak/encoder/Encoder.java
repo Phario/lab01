@@ -5,8 +5,8 @@ import pl.pwr.ite.dynak.data.KeyBrowser;
 import java.util.Arrays;
 
 public class Encoder {
-    private Character[][] key;
-    private String data;
+    private final Character[][] key;
+    private final String data;
     private String encodedString;
     public Encoder(Input EncoderData) {
         this.key = EncoderData.getKey();
@@ -27,7 +27,7 @@ public class Encoder {
                     encodedString.append(key[firstPosition[0]][secondPosition[1]]);
                 }
                 //same row, different column:
-                else if (!(firstPosition[0].equals(secondPosition[0])) && (firstPosition[1].equals(secondPosition[1]))) {
+                else if (!(firstPosition[0].equals(secondPosition[0]))) {
                     if (firstPosition[0] == 4) {
                         encodedString.append(key[0][firstPosition[1]]);
                         encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
@@ -38,9 +38,11 @@ public class Encoder {
                         encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
                         encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
                     }
+                    encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
+                    encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
                 }
                 //same column, different row:
-                else if ((firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
+                else if (!(firstPosition[1].equals(secondPosition[1]))) {
                     if (firstPosition[1] == 4) {
                         encodedString.append(key[firstPosition[0]][0]);
                         encodedString.append(key[secondPosition[0]][secondPosition[1] + 1]);
@@ -57,7 +59,6 @@ public class Encoder {
                     encodedString.append(key[firstPosition[0]][firstPosition[1]]);
                     encodedString.append("x");
                     encodedString.append(key[secondPosition[0]][secondPosition[1]]);
-                    i++;
                 }
 
             }
