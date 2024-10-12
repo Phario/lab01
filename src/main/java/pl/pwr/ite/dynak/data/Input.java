@@ -8,11 +8,12 @@ public class Input {
         Input.data = data;
     }
     public static Character[][] encodingKeyPrompt() {
+        key = new Character[5][5];
         System.out.println("Enter the encoding key:");
         Scanner KeyScanner = new Scanner(System.in);
         for (int i = 0; i < 5; i++) {
-            System.out.println("Enter line no. " + (i + 1) +" ( 5 letters):");
-            String keyLine = KeyScanner.next();
+            System.out.println("Enter line no. " + (i + 1) +" (5 letters):");
+            String keyLine = KeyScanner.nextLine();
             for (int j = 0; j<5; j++) {
                 key[i][j] = keyLine.charAt(j);
             }

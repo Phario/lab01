@@ -2,45 +2,78 @@ package pl.pwr.ite.dynak.encoder;
 
 import pl.pwr.ite.dynak.data.Input;
 import pl.pwr.ite.dynak.data.KeyBrowser;
-
-import java.util.HashMap;
+import java.util.Arrays;
 
 public class Encoder {
     private Character[][] key;
     private String data;
+    private String encodedString;
     public Encoder(Input EncoderData) {
         this.key = EncoderData.getKey();
         this.data = EncoderData.getData();
     }
-    public String encode(Input Input) {
+    public void encode(){
         StringBuilder encodedString = new StringBuilder();
         char[] workableData = data.toCharArray();
         KeyBrowser KeyBrowser = new KeyBrowser();
         KeyBrowser.fillKeyMap(key);
         for (int i = 0; i < data.length(); i += 2) {
-            Integer[] firstPosition = KeyBrowser.getPosition(workableData[i]);
-            Integer[] secondPosition = KeyBrowser.getPosition(workableData[i+1]);
-            //different rows and columns:
-            if (!(firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
-                encodedString.append(key[secondPosition[0]][firstPosition[1]]);
-                encodedString.append(key[firstPosition[0]][secondPosition[1]]);
+            if (data.length() > i+1) {
+                Integer[] firstPosition = KeyBrowser.getPosition(workableData[i]);
+                Integer[] secondPosition = KeyBrowser.getPosition(workableData[i + 1]);
+                //different rows and columns:
+                if (!(firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
+                    encodedString.append(key[secondPosition[0]][firstPosition[1]]);
+                    encodedString.append(key[firstPosition[0]][secondPosition[1]]);
+                }
+                //same row, different column:
+                else if (!(firstPosition[0].equals(secondPosition[0])) && (firstPosition[1].equals(secondPosition[1]))) {
+                    if (firstPosition[0] == 4) {
+                        encodedString.append(key[0][firstPosition[1]]);
+                        encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
+                    } else if (secondPosition[0] == 4) {
+                        encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
+                        encodedString.append(key[0][secondPosition[1]]);
+                    } else {
+                        encodedString.append(key[firstPosition[0] + 1][firstPosition[1]]);
+                        encodedString.append(key[secondPosition[0] + 1][secondPosition[1]]);
+                    }
+                }
+                //same column, different row:
+                else if ((firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
+                    if (firstPosition[1] == 4) {
+                        encodedString.append(key[firstPosition[0]][0]);
+                        encodedString.append(key[secondPosition[0]][secondPosition[1] + 1]);
+                    } else if (secondPosition[1] == 4) {
+                        encodedString.append(key[firstPosition[0]][firstPosition[1] + 1]);
+                        encodedString.append(key[secondPosition[0]][0]);
+                    } else {
+                        encodedString.append(key[firstPosition[0]][firstPosition[1] + 1]);
+                        encodedString.append(key[secondPosition[0]][secondPosition[1] + 1]);
+                    }
+                }
+                //same letter
+                else {
+                    encodedString.append(key[firstPosition[0]][firstPosition[1]]);
+                    encodedString.append("x");
+                    encodedString.append(key[secondPosition[0]][secondPosition[1]]);
+                    i++;
+                }
+
             }
-            //same row, different column:
-            else if (!(firstPosition[0].equals(secondPosition[0])) && (firstPosition[1].equals(secondPosition[1]))) {
-                encodedString.append(key[][]);
-                encodedString.append(key[][]);
-            }
-            //same column, different row:
-            else if ((firstPosition[0].equals(secondPosition[0])) && !(firstPosition[1].equals(secondPosition[1]))) {
-                encodedString.append(key[][]);
-                encodedString.append(key[][]);
-            }
-            //same letter
-            else () {
-                //TODO: increase i by 1 and insert x between the letters, make sure string has even number of character, otherwise add x
+            else {
+                encodedString.append(workableData[i]);
+                encodedString.append("x");
             }
         }
-        //TODO: encoding logic
-        return encodedString.toString();
+        this.encodedString = encodedString.toString();
+    }
+    public void printEncodedString() {
+        System.out.println("Encoding square:");
+        System.out.println(Arrays.deepToString(key));
+        System.out.println("Encoded string: " + encodedString);
+    }
+    public String getEncodedString() {
+        return encodedString;
     }
 }
